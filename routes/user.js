@@ -31,7 +31,7 @@ router.post('/:_id/exercises', async (req, res) => {
   });
   const { username, description, duration, date: dt } = exc;
 
-  res.json({ _id: user._id, username, description, duration, date: dt });
+  res.json({ _id: user._id, username, date: dt, duration, description });
 });
 
 router.get('/:_id/logs', async (req, res) => {
