@@ -29,9 +29,9 @@ router.post('/:_id/exercises', async (req, res) => {
     duration: req.body.duration,
     date,
   });
-  const { _id, username, description, duration, date: dt } = exc;
+  const { username, description, duration, date: dt } = exc;
 
-  res.json({ _id, username, description, duration, date: dt });
+  res.json({ _id: user._id, username, description, duration, date: dt });
 });
 
 router.get('/:_id/logs', async (req, res) => {
@@ -44,7 +44,7 @@ router.get('/:_id/logs', async (req, res) => {
     _id: user._id,
     username: user.username,
     count: excs.length,
-    logs: excs.map(ex => ({
+    log: excs.map(ex => ({
       description: ex.description,
       duration: ex.duration,
       date: ex.date,
