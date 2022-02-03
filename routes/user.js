@@ -41,9 +41,9 @@ router.get('/:_id/logs', async (req, res) => {
   }
   const excs = await Excercise.find({ username: user.username });
   return res.json({
-    _id: user._id,
     username: user.username,
     count: excs.length,
+    _id: user._id,
     log: excs.map(ex => ({
       description: ex.description,
       duration: ex.duration,
