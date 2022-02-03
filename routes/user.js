@@ -43,7 +43,19 @@ router.get('/:_id/logs', async (req, res) => {
   if (!user) {
     return res.send('User not found');
   }
-  const excs = await Excercise.find({ username: user.username });
+  const { from, to, limit } = req.query;
+  let excs;
+  if (from && to) {
+    excs = await Excercise.find({ username: user.username })
+      .where({ date: { $gte: from, $lt: to } })
+      .limit(limit)
+      .exec();
+  } else {
+    excs = await Excercise.find({ username: user.username })
+      .limit(limit)
+      .exec();
+  }
+
   return res.json({
     username: user.username,
     count: excs.length,
