@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 });
 
 function userMiddleWare(req, res, next) {
-  console.log(`${req.method} ${req.path} ${req.params}`);
+  console.log(`${req.method} ${req.path}`);
   next();
 }
 

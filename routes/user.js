@@ -20,9 +20,7 @@ router.post('/:_id/exercises', async (req, res) => {
   if (!user) {
     return res.send('Unknown userId');
   }
-  const date = req.body.date
-    ? new Date(req.body.date).toDateString()
-    : new Date().toDateString();
+  const date = req.body.date && new Date(req.body.date);
   const exc = await Excercise.create({
     username: user.username,
     description: req.body.description,
@@ -31,7 +29,13 @@ router.post('/:_id/exercises', async (req, res) => {
   });
   const { username, description, duration, date: dt } = exc;
 
-  res.json({ _id: user._id, username, date: dt, duration, description });
+  res.json({
+    _id: user._id,
+    username,
+    date: dt.toDateString(),
+    duration,
+    description,
+  });
 });
 
 router.get('/:_id/logs', async (req, res) => {
@@ -47,7 +51,7 @@ router.get('/:_id/logs', async (req, res) => {
     log: excs.map(ex => ({
       description: ex.description,
       duration: ex.duration,
-      date: ex.date,
+      date: ex.date.toDateString(),
     })),
   });
 });
